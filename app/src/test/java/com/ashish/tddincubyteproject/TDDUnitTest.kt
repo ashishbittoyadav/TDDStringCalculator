@@ -29,4 +29,16 @@ class TDDUnitTest {
             assert(e.toString().contains("negative numbers not allowed"))
         }
     }
+
+    @Test
+    fun extract_delimiter_from_string(){
+        val result = sumRepository.add("//;1;2;3;4")
+        assert(result==10)
+    }
+
+    @Test
+    fun check_for_next_line_in_string(){
+        val result = sumRepository.add("//;1;2;3;4\n5")
+        assert(result==15)
+    }
 }

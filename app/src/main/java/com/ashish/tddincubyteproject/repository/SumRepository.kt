@@ -3,17 +3,22 @@ package com.ashish.tddincubyteproject.repository
 class SumRepository {
     fun add(arguments: String): Int {
         if (arguments.isBlank()) return 0
-        val numbers = extractNumbers(arguments,)
+        val delimiter = extractDelimiter(arguments)
+        val numbers = extractNumbers(arguments,delimiter)
 
         validateNegatives(numbers)
 
         return numbers.sum()
     }
 
-    private fun extractNumbers(input: String): List<Int> {
+    private fun extractNumbers(input: String,delimiter: Char): List<Int> {
+        val sanitizedInput = input
+            .removePrefix("//$delimiter")
+            .replace("\n", delimiter.toString())
 
-        return input
-            .split(',')
+
+        return sanitizedInput
+            .split(delimiter)
             .mapNotNull { it.toIntOrNull() }
     }
 
@@ -23,6 +28,14 @@ class SumRepository {
             throw NumberFormatException(
                 "negative numbers not allowed ${negatives.joinToString(",")}"
             )
+        }
+    }
+
+    fun extractDelimiter(input: String): Char {
+        return if (input.startsWith("//")) {
+            input[2]
+        } else {
+            ','
         }
     }
 
