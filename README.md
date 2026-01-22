@@ -17,6 +17,7 @@ fun add(numbers: String): Int
 
 ```kotlin
 fun verify_add_of_number_separated_by_comma_work_fine() //add string separated by ,
+fun validate_for_negative_number_in_the_string() //validate for negative number in the string
 ```
 
 

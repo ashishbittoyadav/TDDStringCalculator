@@ -19,4 +19,14 @@ class TDDUnitTest {
         val result = sumRepository.add("1,2")
         assert(result == 3)
     }
+
+    @Test
+    fun validate_for_negative_number_in_the_string(){
+        try {
+            val result = sumRepository.add("1,-2,3")
+            assert(result==4)
+        }catch (e: Exception){
+            assert(e.toString().contains("negative numbers not allowed"))
+        }
+    }
 }

@@ -5,6 +5,8 @@ class SumRepository {
         if (arguments.isBlank()) return 0
         val numbers = extractNumbers(arguments,)
 
+        validateNegatives(numbers)
+
         return numbers.sum()
     }
 
@@ -14,4 +16,14 @@ class SumRepository {
             .split(',')
             .mapNotNull { it.toIntOrNull() }
     }
+
+    private fun validateNegatives(numbers: List<Int>) {
+        val negatives = numbers.filter { it < 0 }
+        if (negatives.isNotEmpty()) {
+            throw NumberFormatException(
+                "negative numbers not allowed ${negatives.joinToString(",")}"
+            )
+        }
+    }
+
 }
